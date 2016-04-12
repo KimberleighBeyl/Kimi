@@ -1,0 +1,57 @@
+Test case: 2
+
+Unit to be test: index.html
+
+Assumptions:
+Discount will be calcuated for items bought
+
+Test data:
+var items = [{
+        'items': 'Clothes',
+        'ammount': 5
+      }, {
+        'items': 'Groceries',
+        'ammount': 5
+      }, {
+        'items': 'Clothes',
+        'ammount': 10
+}];
+
+Steps to execute:
+  1. Determine the type of user
+  2. Check if there are Groceries
+  3. Calculate discount
+  4. Check if spend more than $100
+  5. If more than $100 subtract total with new discount
+
+Expected result:
+    Total amount to be paid is $20.
+    *user 0:
+        $10.5 after discount.
+        Spend more than $100 ($0) the final ammount to be paid is: $10.5
+    *user 1:
+      $13.5 after discount.
+      Spend more than $100 ($0) the final ammount to be paid is: $13.5.
+    *user 2:
+      $14.25 after discount.
+      Spend more than $100 ($0) the final ammount to be paid is: $14.25.
+    *user 3 (default):
+      $20 after discount
+      Spend more than $100 ($0) the final ammount to be paid is: $20.
+
+Actual result:
+  Total amount to be paid is $20.
+  *user 0:
+      $10.5 after discount.
+      Spend more than $100 ($0) the final ammount to be paid is: $10.5
+  *user 1:
+    $13.5 after discount.
+    Spend more than $100 ($0) the final ammount to be paid is: $13.5.
+  *user 2:
+    $14.25 after discount.
+    Spend more than $100 ($0) the final ammount to be paid is: $14.25.
+  *user 3 (default):
+      $20 after discount
+      Spend more than $100 ($0) the final ammount to be paid is: $20.
+
+Pass/Fail: Pass

@@ -12,6 +12,7 @@
         <option value="0">The user an employee</option>
         <option value="1">The user is affiliate of the store</option>
         <option value="2">The user has been a customer for over 2 years</option>
+        <option value="3">Normal customer</option>
       </select>
     </div>
     <input type="submit" onclick="discount_type()" />
@@ -27,60 +28,98 @@
       var totalAmount = 0;
       var finalCost = 0;
       var totalCost = 0;
+      var otherCost = 0;
+      var flag = false;
       //This can change and get as its read in example of text
       var items = [{
-        'items': 'Clothes',
-        'ammount': 50
+        'items': '',
+        'ammount': 5
       }, {
         'items': 'Groceries',
-        'ammount': 100
+        'ammount': null
       }, {
         'items': 'Clothes',
-        'ammount': 150
+        'ammount': 10
       }];
+
       var result = items.map(function(a) {
         return a.ammount;
       });
-      for (var j = 0; j < result.length; j++) {
-        cost = cost + result[j];
+      var itemType = items.map(function(a) {
+        return a.items;
+      });
+
+      //check if nuull or empty
+      for (var j = 0; j < result.length; j++){
+        if (result[j] == null || result[j] == '-1'){
+          alert ("Cost is incorrect, Make sure price is correct");
+          flag = true;
+          break;
+        }
+        else  if (itemType[j] == 'null'){
+          alert ("No item type specified");
+          flag = true;
+          break;
+        }
+        else
+        {
+          flag = false;
+        }
       }
-      person = new Object()
-      person.type = type;
-      person.cost = cost;
-      switch (type) {
-        //employee
-        case '0':
-          {
-            discount = 0.3 * cost;
-            totalAmount = cost - discount;
+
+      if (flag == false){
+        //Check if Groceries
+        for (var k = 0; k < itemType.length; k++) {
+            if (itemType[k] == "Groceries"){
+                otherCost = result[k];
+            }
+            else {
+                cost = cost + result[k];
+            }
+        }
+         var togetherCost = otherCost + cost;
+        person = new Object()
+        person.type = type;
+        person.cost = togetherCost;
+        switch (type) {
+          //employee
+          case '0':
+            {
+              discount = 0.3 * cost;
+              totalAmount = cost - discount;
+              break;
+            }
+            //affiliate
+          case '1':
+            {
+              discount = 0.1 * cost;
+              totalAmount = cost - discount;
+              break;
+            }
+            //over 2 years
+          case '2':
+            {
+              discount = 0.05 * cost;
+              totalAmount = cost - discount;
+              break;
+            }
+            //Groceries
+          default: {
+            totalAmount = togetherCost;
             break;
           }
-          //affiliate
-        case '1':
-          {
-            discount = 0.1 * cost;
-            totalAmount = cost - discount;
-            break;
-          }
-          //over 2 years
-        case '2':
-          {
-            discount = 0.05 * cost;
-            totalAmount = cost - discount;
-            break;
-          }
-          //Groceries
-        default: {break;}
-      }
-       //$100
-      if (cost > 100){
-        bill = (cost / 100);
-        total = bill.toFixed()
-        finalCost =  (total * 5);
+        }
+        person.discount = totalAmount;
+         //$100
+        if ((togetherCost) > 100){
+          bill = (togetherCost / 100);
+          total = bill.toFixed()
+          finalCost =  (total * 5);
+        }
       }
       totalCost = totalAmount - finalCost
       person.total = totalCost;
-      document.getElementById("ans").innerHTML = '<p> Person type: ' + person.type +'<br>Person total $'+ person.cost + '<br/>person new total after discount: $' + person.total + '<br/></p>';
+      document.getElementById("ans").innerHTML = '<p> Person type: ' + person.type +'<br>Person total $'+ person.cost + '<br/> person discount before > $100: $' + person.discount + '<br/>person new total after discount: $' + person.total + '<br/></p>';
     }
   </script>
 </body>

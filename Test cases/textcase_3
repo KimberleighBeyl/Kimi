@@ -1,0 +1,50 @@
+Test case: 3
+
+Unit to be test: index.html
+
+Assumptions:
+Discount will be calcuated for items bought
+
+Test data:
+var items = [{
+        'items': '',
+        'ammount': 5
+      }, {
+        'items': 'Groceries',
+        'ammount': null
+      }, {
+        'items': 'Clothes',
+        'ammount': 10
+      }];
+
+Steps to execute:
+  1. Check if data correct
+  1. Determine the type of user
+  2. Check if there are Groceries
+  3. Calculate discount
+  4. Check if spend more than $100
+  5. If more than $100 subtract total with new discount
+
+Expected result:
+  Won't execute there are items that are null
+    *user 0:
+      alert message
+    *user 1:
+        alert message
+    *user 2:
+        alert message
+    *user 3 (default):
+        alert message
+
+Actual result:
+Alert error message
+  *user 0:
+    alert message
+  *user 1:
+      alert message
+  *user 2:
+      alert message
+  *user 3 (default):
+      alert message
+
+Pass/Fail: Pass
