@@ -1,0 +1,88 @@
+<html>
+
+<head>
+  <script="scripts/case_statement.js"></script>
+</head>
+
+<body>
+  <div>
+    <div>
+      <h1>What type of user:</h1>
+      <select id = "userId">
+        <option value="0">The user an employee</option>
+        <option value="1">The user is affiliate of the store</option>
+        <option value="2">The user has been a customer for over 2 years</option>
+      </select>
+    </div>
+    <input type="submit" onclick="discount_type()" />
+    <div id = "ans">
+    </div>
+  </div>
+  <script>
+    function discount_type() {
+      var x = document.getElementById("userId").selectedIndex;
+      type = document.getElementsByTagName("option")[x].value;
+      var cost = 0;
+      var discount = 0;
+      var totalAmount = 0;
+      var finalCost = 0;
+      var totalCost = 0;
+      //This can change and get as its read in example of text
+      var items = [{
+        'items': 'Clothes',
+        'ammount': 50
+      }, {
+        'items': 'Groceries',
+        'ammount': 100
+      }, {
+        'items': 'Clothes',
+        'ammount': 150
+      }];
+      var result = items.map(function(a) {
+        return a.ammount;
+      });
+      for (var j = 0; j < result.length; j++) {
+        cost = cost + result[j];
+      }
+      person = new Object()
+      person.type = type;
+      person.cost = cost;
+      switch (type) {
+        //employee
+        case '0':
+          {
+            discount = 0.3 * cost;
+            totalAmount = cost - discount;
+            break;
+          }
+          //affiliate
+        case '1':
+          {
+            discount = 0.1 * cost;
+            totalAmount = cost - discount;
+            break;
+          }
+          //over 2 years
+        case '2':
+          {
+            discount = 0.05 * cost;
+            totalAmount = cost - discount;
+            break;
+          }
+          //Groceries
+        default: {break;}
+      }
+       //$100
+      if (cost > 100){
+        bill = (cost / 100);
+        total = bill.toFixed()
+        finalCost =  (total * 5);
+      }
+      totalCost = totalAmount - finalCost
+      person.total = totalCost;
+      document.getElementById("ans").innerHTML = '<p> Person type: ' + person.type +'<br>Person total $'+ person.cost + '<br/>person new total after discount: $' + person.total + '<br/></p>';
+    }
+  </script>
+</body>
+
+</html>
