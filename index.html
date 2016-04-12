@@ -30,18 +30,18 @@
       var totalCost = 0;
       var otherCost = 0;
       var flag = false;
+      var togetherCost = 0;
       //This can change and get as its read in example of text
       var items = [{
-        'items': '',
-        'ammount': 5
-      }, {
-        'items': 'Groceries',
-        'ammount': null
-      }, {
-        'items': 'Clothes',
-        'ammount': 10
-      }];
-
+            'items': 'Groceries',
+            'ammount': 100
+          }, {
+            'items': 'Groceries',
+            'ammount': 4
+          }, {
+            'items': 'Groceries',
+            'ammount': 10
+          }];
       var result = items.map(function(a) {
         return a.ammount;
       });
@@ -56,7 +56,7 @@
           flag = true;
           break;
         }
-        else  if (itemType[j] == 'null'){
+        else  if (itemType[j] == ''){
           alert ("No item type specified");
           flag = true;
           break;
@@ -71,13 +71,19 @@
         //Check if Groceries
         for (var k = 0; k < itemType.length; k++) {
             if (itemType[k] == "Groceries"){
-                otherCost = result[k];
+                otherCost = otherCost + result[k];
             }
             else {
                 cost = cost + result[k];
             }
         }
-         var togetherCost = otherCost + cost;
+         if (cost == 0)
+         {
+           togetherCost = otherCost;
+         }
+         else{
+                    togetherCost = otherCost + cost;
+         }
         person = new Object()
         person.type = type;
         person.cost = togetherCost;
@@ -111,13 +117,19 @@
         }
         person.discount = totalAmount;
          //$100
-        if ((togetherCost) > 100){
+         console.log (togetherCost);
+        if ((togetherCost) >= 100){
           bill = (togetherCost / 100);
           total = bill.toFixed()
           finalCost =  (total * 5);
         }
       }
-      totalCost = totalAmount - finalCost
+      totalCost = totalAmount - finalCost;
+      if (totalAmount == 0)
+      {
+        totalCost = otherCost - finalCost;
+      }
+
       person.total = totalCost;
       document.getElementById("ans").innerHTML = '<p> Person type: ' + person.type +'<br>Person total $'+ person.cost + '<br/> person discount before > $100: $' + person.discount + '<br/>person new total after discount: $' + person.total + '<br/></p>';
     }
